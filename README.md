@@ -1,4 +1,4 @@
-#FilmRentalNodeJs how to
+# FilmRentalNodeJs how to
 
 Hello everyone, here we are still struggling with FilmRental, this time in the Node.js version.
 
@@ -17,7 +17,7 @@ To start the app normally gust type "npm start".
 Make sure to read the Express.js standard to understand the framework used and all the lines of code written up until now
 (i'm not joking, there are only a few line of code) to fully understand what is going on in a Node.Js application.
 
-#Develop with VScode
+# Develop with VScode
 
 I suggest this launch.json for remote debugging. Just click on the right node process when start:
 
