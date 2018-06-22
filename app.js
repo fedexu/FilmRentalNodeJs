@@ -8,8 +8,7 @@ var config = require('./config.js').get(process.env.NODE_ENV);
 var db = require('./db');
 
 // Routers
-var indexRouter = require('./routes/index');
-var filmRouter = require('./routes/film');
+var filmRouter = require('./routes/film/film.js');
 
 var app = express();
 
@@ -27,17 +26,20 @@ db.connect(config.database, config.databaseName, function (err) {
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-// URL mapping
-app.use('/', indexRouter);
+/* This will be our Angular folder:
+ * we put in this folder the angular generated dist folder files.
+ * With this statement Angular can async load the static files and 
+ * do his stuff.
+ */
+app.use(express.static(path.join(__dirname, 'angularApp')));
+
+// Controller and url mapping
 app.use('/film',filmRouter);
 
 // catch 404 and forward to error handler
