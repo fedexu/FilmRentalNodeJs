@@ -8,7 +8,7 @@ var config = require('./config.js').get(process.env.NODE_ENV);
 var db = require('./db');
 
 // Routers
-var filmRouter = require('./routes/film/film.js');
+var routerManager = require('./routes/routeManager.js');
 
 var app = express();
 
@@ -17,10 +17,10 @@ console.log("environment: " + process.env.NODE_ENV);
 // Connect to Mongo on start
 db.connect(config.database, config.databaseName, function (err) {
   if (err) {
-    console.log('Unable to connect to MongoDb!.');
+    console.log('Unable to connect to MongoDb!');
     process.exit(1);
   } else {
-    console.log('Connected to MongoDb!.');
+    console.log('Connected to MongoDb!');
   }
 });
 
@@ -40,7 +40,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'angularApp')));
 
 // Controller and url mapping
-app.use('/film',filmRouter);
+app.use('/filmRentalNodeJs',routerManager);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
