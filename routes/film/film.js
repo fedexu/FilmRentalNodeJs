@@ -40,5 +40,27 @@ router.get('/detail/:id', function (req, res, next) {
 
 });
 
+router.get('/poster/:id', function (req, res, next) {
+  var filmId = parseInt(req.params.id);
+
+  var query = { "film_id": filmId };
+
+  db.get().collection('filmPoster').find(query).toArray(function (err, result) {
+    if (err) next(err);
+
+    if(result.length == 0){
+      var query = { "film_id": 0 };
+      db.get().collection('filmPoster').find(query).toArray(function (err, result) {
+        if (err) next(err);
+
+        res.send(result);
+      });
+    }else{
+      res.send(result);
+    }
+  });
+
+});
+
 
 module.exports = router;
