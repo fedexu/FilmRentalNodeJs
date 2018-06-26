@@ -7,7 +7,6 @@ var db = require('../../db');
 router.get('/allFilms', function (req, res, next) {
   db.get().collection('film').find().toArray(function (err, result) {
     if (err) next(err);
-    console.log(result.length);
     res.send(result);
   });
 

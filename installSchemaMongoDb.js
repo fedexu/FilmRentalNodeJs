@@ -9199,8 +9199,16 @@ db.store.insertMany([
 {	store_id: "2",	managerStaff_id: "2",	address_id: "2",	lastUpdate: "2006-02-15 04:57:12"	}
 ]);
 
+print("End import - start prettify");
+
+function uppercaseAllWords(value) {
+  return value.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
 db.actor.find().forEach( function (x) {
   x.actor_id = parseInt(x.actor_id); 
+  x.firstName = uppercaseAllWords(x.firstName);
+  x.lastName = uppercaseAllWords(x.lastName);
   db.actor.save(x);
 });
 
@@ -9229,13 +9237,16 @@ db.country.find().forEach( function (x) {
 db.customer.find().forEach( function (x) {
   x.customer_id = parseInt(x.customer_id); 
   x.store_id = parseInt(x.store_id); 
-  x.address_id = parseInt(x.address_id); 
+  x.address_id = parseInt(x.address_id);
+  x.firstName = uppercaseAllWords(x.firstName);
+  x.lastName = uppercaseAllWords(x.lastName);
   db.customer.save(x);
 });
 
 db.film.find().forEach( function (x) {
   x.film_id = parseInt(x.film_id); 
   x.language_id = parseInt(x.language_id); 
+  x.title = uppercaseAllWords(x.title);
   db.film.save(x);
 });
 
@@ -9253,6 +9264,7 @@ db.filmCategory.find().forEach( function (x) {
 
 db.filmText.find().forEach( function (x) {
   x.film_id = parseInt(x.film_id); 
+  x.title = uppercaseAllWords(x.title);
   db.filmText.save(x);
 });
 
